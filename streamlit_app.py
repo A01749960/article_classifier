@@ -22,8 +22,7 @@ st.set_page_config(page_title="Topic Classifier", page_icon="🧠", layout="cent
 
 st.title("Topic Classifier")
 st.write(
-    "Replicates the Mathematica topic classifier workflow using Wikipedia text. "
-    "Labels include the original misspelling `Phyics` for fidelity."
+    "Classifier workflow using Wikipedia text. "
 )
 
 
