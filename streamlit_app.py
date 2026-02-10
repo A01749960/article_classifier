@@ -47,11 +47,26 @@ def wikipedia_plaintext(title: str, *, user_agent: str = "mathematica-replica") 
 try:
     import nltk
 
-    nltk.download("punkt", quiet=True)
     from nltk.tokenize import sent_tokenize
 
+    def _regex_split(text: str) -> List[str]:
+        chunks = re.split(r"(?<=[.!?])\s+", text.strip())
+        return [s.strip() for s in chunks if s.strip()]
+
     def split_sentences(text: str) -> List[str]:
-        return [s.strip() for s in sent_tokenize(text) if s.strip()]
+        try:
+            return [s.strip() for s in sent_tokenize(text) if s.strip()]
+        except LookupError:
+            # Some NLTK versions require 'punkt_tab' in addition to 'punkt'.
+            try:
+                nltk.download("punkt", quiet=True)
+                nltk.download("punkt_tab", quiet=True)
+            except Exception:
+                return _regex_split(text)
+            try:
+                return [s.strip() for s in sent_tokenize(text) if s.strip()]
+            except Exception:
+                return _regex_split(text)
 
 except Exception:
 
