@@ -122,30 +122,3 @@ if st.button("Classify"):
     st.dataframe(prob_map)
     st.bar_chart(prob_map)
 
-
-st.divider()
-st.subheader("URL shortening and QR code (optional)")
-
-url_input = st.text_input("URL to shorten / encode", "http://localhost:8501")
-
-short_url = None
-if st.button("Shorten URL"):
-    try:
-        import pyshorteners
-
-        shortener = pyshorteners.Shortener()
-        short_url = shortener.tinyurl.short(url_input)
-        st.write(f"Short URL: {short_url}")
-    except Exception as exc:
-        st.warning("URL shortener failed. Install `pyshorteners` or check network.")
-        st.exception(exc)
-
-if st.button("Generate QR"):
-    try:
-        import qrcode
-
-        img = qrcode.make(short_url or url_input)
-        st.image(img, caption=short_url or url_input)
-    except Exception as exc:
-        st.warning("QR generation failed. Install `qrcode[pil]`.")
-        st.exception(exc)
