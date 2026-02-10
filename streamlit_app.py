@@ -111,7 +111,7 @@ with st.spinner("Training classifier from Wikipedia articles..."):
 
 
 st.subheader("Classify text")
-text = st.text_area("Text", value="The world is made of atoms", height=100)
+text = st.text_area("Text", value="Everything is made of cells", height=100)
 
 if st.button("Classify"):
     pred = model.predict([text])[0]
@@ -121,4 +121,3 @@ if st.button("Classify"):
     st.write(f"**Class:** {pred}")
     st.dataframe(prob_map)
     st.bar_chart(prob_map)
-
