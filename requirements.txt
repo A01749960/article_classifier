@@ -1,0 +1,6 @@
+streamlit
+scikit-learn
+numpy
+nltk
+qrcode[pil]
+pyshorteners
